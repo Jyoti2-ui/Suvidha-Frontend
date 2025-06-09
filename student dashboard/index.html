@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Suvidha Foundation Dashboard</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+</head>
+<body>
+    <div class="dashboard-container">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <img src="suvidha.jpg" alt="Suvidha Foundation Logo" class="logo">
+                <h2>Suvidha Foundation</h2>
+            </div>
+            <ul class="nav-menu">
+                <li class="nav-item active" data-section="profile">
+                    <i class="fas fa-user-tie"></i> My Profile
+                </li>
+                <li class="nav-item" data-section="applications">
+                    <i class="fas fa-file-alt"></i> My Applications
+                </li>
+                <li class="nav-item" data-section="internships">
+                    <i class="fas fa-briefcase"></i> Available Internships
+                </li>
+                <li class="nav-item" data-section="resume">
+                    <i class="fas fa-file-invoice"></i> My Resume
+                </li>
+            </ul>
+        </nav>
+
+        <main class="main-content">
+            <header class="dashboard-header">
+                <h1>Student Dashboard</h1>
+                <div class="user-info">
+                    <span id="welcomeUserName">Welcome  Suvidha</span>
+                    <img src="https://placehold.co/40x40/7d8fb2/white?text=SF" alt="User Avatar" id="headerUserAvatar">
+                </div>
+            </header>
+
+            <section id="profile" class="content-section active">
+                <div class="section-header">
+                    <!-- <h2>My Profile</h2> -->
+                    <p>View and manage your personal and academic details.</p>
+                </div> 
+                
+                <div class="profile-container">
+                    <div class="profile-card">
+                        <div class="profile-image">
+                            <img src="https://placehold.co/120x120/7d8fb2/white?text=SF" alt="Profile Picture" id="profileImg">
+                            <button class="edit-photo-btn" onclick="document.getElementById('photoInput').click()">
+                                <i class="fas fa-camera"></i>
+                            </button>
+                            <input type="file" id="photoInput" accept="image/*" style="display: none;">
+                        </div>
+                        <div class="profile-info">
+                            <h3 id="studentName">Suvidha</h3>
+                            <p id="studentEmail">suvidha@university.edu</p>
+                            <p id="studentMajor">Computer Science</p>
+                        </div>
+                    </div>
+
+                    <div class="profile-form">
+                        <h3>Personal Details</h3>
+                        <form id="profileForm">
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="fullName">Full Name</label>
+                                    <input type="text" id="fullName" value="Suvidha Foundation">
+                                </div>
+                                <div class="form-group">
+                                    <label for="email">Email</label>
+                                    <input type="email" id="email" value="suvidha@university.edu">
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="phone">Phone</label>
+                                    <input type="tel" id="phone" value="+91 98765 43210">
+                                    <small class="form-text">Please include your country code (e.g. +91 for India)</small>
+                                </div>
+                                <div class="form-group">
+                                    <label for="degree">Degree</label>
+                                    <input type="text" id="degree" value="Bachelor of Technology">
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="major">Major</label>
+                                    <input type="text" id="major" value="Computer Science">
+                                </div>
+                                <div class="form-group">
+                                    <label for="graduationYear">Graduation Year</label>
+                                    <select id="graduationYear">
+                                        <option value="2024">2024</option>
+                                        <option value="2025">2025</option>
+                                        <option value="2026">2026</option>
+                                        <option value="2027" selected>2027</option>
+                                        <option value="2028">2028</option>
+                                        <option value="2029">2029</option>
+                                        <option value="2030">2030</option>
+                                    </select>
+                                </div>
+                            </div>
+                            
+                            <button type="submit" class="btn btn-primary">Save Changes</button>
+                        </form>
+                    </div>
+                </div>
+            </section>
+
+            <section id="applications" class="content-section">
+                <div class="section-header">
+                    <!-- <h2>My Applications</h2> -->
+                    <p>Track the status of all your internship applications.</p>
+                </div>
+
+                <div class="applications-container">
+                     <div class="applications-stats">
+                        <div class="stat-card">
+                            <h3 id="totalApps">3</h3>
+                            <p>Total Applications</p>
+                        </div>
+                        <div class="stat-card">
+                            <h3 id="reviewApps">1</h3>
+                            <p>Under Review</p>
+                        </div>
+                        <div class="stat-card">
+                            <h3 id="acceptedApps">1</h3>
+                            <p>Accepted</p>
+                        </div>
+                        <div class="stat-card">
+                            <h3 id="rejectedApps">1</h3>
+                            <p>Rejected</p>
+                        </div>
+                    </div>
+                    <div class="applications-list" id="applicationsList">
+                        </div>
+                </div>
+            </section>
+
+            <section id="internships" class="content-section">
+                <div class="section-header">
+                    <!-- <h2>Available Internships</h2> -->
+                    <p>Browse internships with filters and sorting options</p>
+                </div>
+
+                <div class="internships-container">
+                    <div class="filters-section">
+                        <div class="search-bar">
+                            <i class="fas fa-search"></i>
+                            <input type="text" id="searchInput" placeholder="Search internships by title or company...">
+                        </div>
+                        <div class="filters">
+                            <select id="locationFilter">
+                                <option value="">All Locations</option>
+                                </select>
+                            <select id="typeFilter">
+                                <option value="">All Types</option>
+                                <option value="software">Software Engineering</option>
+                                <option value="design">Design</option>
+                                <option value="marketing">Marketing</option>
+                                <option value="data">Data Science</option>
+                                <option value="hr">Human Resources</option>
+                                <option >Machine Learning</option>
+
+                            </select>
+                            <select id="sortBy">
+                                <option value="date">Sort by Date</option>
+                                <option value="company">Sort by Company</option>
+                                <option value="location">Sort by Location</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="internships-grid" id="internshipsGrid">
+                        </div>
+                </div>
+            </section>
+
+            <section id="resume" class="content-section">
+                <div class="section-header">
+                    <!-- <h2>My Resume</h2> -->
+                    <p>Manage your resume or create a new one with our builder.</p>
+                </div>
+
+                <div class="resume-container">
+                    <div id="resume-main-view">
+                        <div class="upload-section">
+                            <div class="upload-area" id="uploadArea">
+                                <i class="fas fa-cloud-upload-alt"></i>
+                                <h3>Upload Your Resume</h3>
+                                <p>Drag & drop or click here to upload</p>
+                                <input type="file" id="resumeInput" accept=".pdf,.doc,.docx" style="display: none;">
+                            </div>
+                             <div class="or-divider">OR</div>
+                             <button class="btn btn-secondary" id="openResumeBuilderBtn">
+                                <i class="fas fa-drafting-compass"></i> Create with Resume Builder
+                            </button>
+                        </div>
+                        <div class="preview-section" id="previewSection" style="display: none;">
+                            <h3>Resume Preview</h3>
+                            <div class="resume-preview" id="resumePreview"></div>
+                            <div class="resume-actions">
+                                <button class="btn btn-secondary" id="updateResumeBtn"><i class="fas fa-pen"></i> Update</button>
+                                <button class="btn btn-primary" id="downloadResumeBtn"><i class="fas fa-download"></i> Download</button>
+                                <button class="btn btn-danger" id="deleteResumeBtn"><i class="fas fa-trash"></i> Delete</button>
+                            </div>
+                        </div>
+                    </div>
+                     <div id="resume-builder-view" style="display: none;">
+                       <div class="resume-builder-header">
+                           <h3>Resume Builder</h3>
+                           <div class="builder-actions">
+                                <button class="btn btn-secondary" id="previewResumeBtn"><i class="fas fa-eye"></i> Preview</button>
+                                <button class="btn btn-primary" id="saveAndDownloadResumeBtn"><i class="fas fa-save"></i> Save & Download PDF</button>
+                                <button class="btn btn-danger" id="closeResumeBuilderBtn"><i class="fas fa-times"></i> Close</button>
+                           </div>
+                       </div>
+                        <div class="resume-builder-content">
+                            <div class="builder-form-section">
+                                <fieldset>
+                                    <legend>Personal Information</legend>
+                                    <input type="text" id="rbName" placeholder="Full Name">
+                                    <input type="email" id="rbEmail" placeholder="Email Address">
+                                    <input type="tel" id="rbPhone" placeholder="Phone Number">
+                                    <input type="text" id="rbAddress" placeholder="City, State, Country">
+                                    <input type="text" id="rbLinkedIn" placeholder="LinkedIn Profile URL (optional)">
+                                    <input type="text" id="rbGithub" placeholder="GitHub Profile URL (optional)">
+                                </fieldset>
+
+                                <fieldset>
+                                    <legend>Education</legend>
+                                    <div id="educationEntries">
+                                        <div class="entry">
+                                            <input type="text" class="rbDegree" placeholder="Degree (e.g., B.Tech in Computer Science)">
+                                            <input type="text" class="rbSchool" placeholder="Institution Name">
+                                            <input type="text" class="rbGradDate" placeholder="Graduation Date (e.g., May 2026)">
+                                            <input type="text" class="rbGpa" placeholder="GPA/Percentage (optional)">
+                                        </div>
+                                    </div>
+                                    <button class="btn-add" id="addEducationBtn"><i class="fas fa-plus"></i> Add Education</button>
+                                </fieldset>
+                                
+                                <fieldset>
+                                    <legend>Experience</legend>
+                                    <div id="experienceEntries">
+                                        </div>
+                                    <button class="btn-add" id="addExperienceBtn"><i class="fas fa-plus"></i> Add Experience</button>
+                                </fieldset>
+
+                                <fieldset>
+                                    <legend>Projects</legend>
+                                    <div id="projectEntries">
+                                        </div>
+                                    <button class="btn-add" id="addProjectBtn"><i class="fas fa-plus"></i> Add Project</button>
+                                </fieldset>
+
+                                <fieldset>
+                                    <legend>Extra Curricular Activities</legend>
+                                    <div id="extraCurricularEntries">
+                                        </div>
+                                    <button class="btn-add" id="addExtraCurricularBtn"><i class="fas fa-plus"></i> Add extra curricular activities</button>
+                                </fieldset>
+
+                                <fieldset>
+                                    <legend>Trainings/ Courses</legend>
+                                    <div id="trainingEntries">
+                                        </div>
+                                    <button class="btn-add" id="addTrainingBtn"><i class="fas fa-plus"></i> Add training/ course</button>
+                                </fieldset>
+
+                                 <fieldset>
+                                    <legend>Skills</legend>
+                                    <textarea id="rbSkills" placeholder="List your skills, separated by commas (e.g., JavaScript, Python, React, Teamwork)"></textarea>
+                                </fieldset>
+                            </div>
+                            <div class="builder-preview-section">
+                                <h4>Live Preview</h4>
+                                <div id="builderPreview" class="resume-template">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <div id="applicationModal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h3>Application Confirmation</h3>
+            <p id="modalMessage"></p>
+            <div class="modal-actions">
+                <button class="btn btn-secondary" id="cancelApplication">Cancel</button>
+                <button class="btn btn-primary" id="confirmApplication">Confirm Application</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
