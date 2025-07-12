@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>TPO Dashboard</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+  <style>
+    body {
+      background: #1d3c6e;
+      color: #000;
+    }
+    .dashboard-header {
+      background: white;
+      border-radius: 10px;
+      padding: 20px;
+    }
+    .info-box {
+      background: white;
+      border-radius: 10px;
+      padding: 15px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+    .status-placed { color: green; font-weight: bold; }
+    .status-interview { color: #007bff; font-weight: bold; }
+    .status-pending { color: #ffc107; font-weight: bold; }
+    footer {
+      background: #13325f;
+      color: white;
+    }
+    .btn-primary {
+      background-color: #1d3c6e;
+      border: none;
+    }
+    .btn-primary:hover {
+      background-color: #163055;
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark px-4">
+    <a class="navbar-brand fw-bold" href="#"><i class="fas fa-university me-2"></i>TPO Portal</a>
+    <div class="collapse navbar-collapse">
+      <ul class="navbar-nav ms-auto">
+        <li class="nav-item"><a class="nav-link active" href="#dashboardTab">Dashboard</a></li>
+        <li class="nav-item"><a class="nav-link" href="#studentsTab">Students</a></li>
+        <li class="nav-item"><a class="nav-link" href="#companiesTab">Companies</a></li>
+      </ul>
+    </div>
+    <div class="text-white ms-3"><i class="fas fa-user-circle me-1"></i>Admin</div>
+  </nav>
+
+  <div class="container my-4">
+    <div class="tab-content">
+
+      <div class="tab-pane fade show active" id="dashboardTab">
+        <div class="dashboard-header text-center mb-4">
+          <h2>Training & Placement Dashboard</h2>
+          <p>Academic Year 2024-25 | Placement Analytics</p>
+        </div>
+
+        <div class="row text-center mb-4">
+          <div class="col-md-3 mb-3">
+            <div class="info-box">
+              <div><i class="fas fa-user-graduate fa-2x text-primary"></i></div>
+              <div>
+                <h5>--</h5>
+                <small>Total Students</small>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-3 mb-3">
+            <div class="info-box">
+              <div><i class="fas fa-check-circle fa-2x text-success"></i></div>
+              <div>
+                <h5>892</h5>
+                <small>Placed Students</small>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-3 mb-3">
+            <div class="info-box">
+              <div><i class="fas fa-building fa-2x text-info"></i></div>
+              <div>
+                <h5>156</h5>
+                <small>Companies</small>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-3 mb-3">
+            <div class="info-box">
+              <div><i class="fas fa-money-bill-wave fa-2x text-warning"></i></div>
+              <div>
+                <h5>8.2L</h5>
+                <small>Avg Package</small>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row mb-4">
+          <div class="col-md-6">
+            <div class="card">
+              <div class="card-body">
+                <h5 class="card-title">Monthly Placement Trends</h5>
+                <canvas id="placementChart"></canvas>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="card">
+              <div class="card-body">
+                <h5 class="card-title">Department Distribution</h5>
+                <canvas id="departmentChart"></canvas>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card mb-4">
+          <div class="card-body">
+            <h5 class="card-title">Recent Placements</h5>
+            <div class="table-responsive">
+              <table class="table table-bordered text-center">
+                <thead class="table-light">
+                  <tr>
+                    <th>Student Name</th>
+                    <th>Department</th>
+                    <th>Company</th>
+                    <th>Package</th>
+                    <th>Status</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr><td>Rajesh Kumar</td><td>Computer Science</td><td>Google</td><td>45.0 LPA</td><td class="status-placed">PLACED</td></tr>
+                  <tr><td>Priya Sharma</td><td>Electronics</td><td>Microsoft</td><td>38.1 LPA</td><td class="status-placed">PLACED</td></tr>
+                  <tr><td>Amit Patel</td><td>Mechanical</td><td>Tata Motors</td><td>12.5 LPA</td><td class="status-interview">INTERVIEW</td></tr>
+                  <tr><td>Sneha Reddy</td><td>Civil</td><td>L&T</td><td>8.5 LPA</td><td class="status-pending">PENDING</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="tab-pane fade" id="studentsTab">
+        <div class="card mb-5">
+          <div class="card-body">
+            <h5 class="card-title">Student Coordination & Opportunity Notifications</h5>
+            <ul class="list-group">
+              <li class="list-group-item d-flex justify-content-between align-items-center">
+                Sent opportunity mail for <strong>Frontend Developer at Google</strong>
+                <span class="badge bg-success">Sent</span>
+              </li>
+              <li class="list-group-item d-flex justify-content-between align-items-center">
+                Reminder: Resume deadline for <strong>Amazon Internship</strong>
+                <span class="badge bg-warning text-dark">Pending</span>
+              </li>
+              <li class="list-group-item d-flex justify-content-between align-items-center">
+                Scheduled briefing with <strong>TCS Recruitment Team</strong>
+                <span class="badge bg-info">Upcoming</span>
+              </li>
+            </ul>
+            <div class="mt-3">
+              <button class="btn btn-primary">Send New Opportunity Mail</button>
+              <button class="btn btn-primary">Notify All Students</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="tab-pane fade" id="companiesTab">
+        <div class="card mb-5">
+          <div class="card-body">
+            <h5 class="card-title">Employer Profiles & Contact Coordination</h5>
+            <div class="table-responsive">
+              <table class="table table-bordered text-center">
+                <thead class="table-light">
+                  <tr>
+                    <th>Company Name</th>
+                    <th>Contact Person</th>
+                    <th>Email</th>
+                    <th>Phone</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr><td>Google</td><td>xyz</td><td>xyz@google.com</td><td>+1 9876543210</td><td><button class="btn btn-sm btn-primary">Contact</button></td></tr>
+                  <tr><td>Amazon</td><td>xyz</td><td>xyz@amazon.com</td><td>+1 9123456780</td><td><button class="btn btn-sm btn-primary">Contact</button></td></tr>
+                  <tr><td>Infosys</td><td>xyz</td><td>xyz@infosys.com</td><td>+91 9988776655</td><td><button class="btn btn-sm btn-primary">Contact</button></td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <footer class="pt-4 pb-2">
+    <div class="container text-white">
+      <div class="row text-center text-md-start">
+        <div class="col-md-3 mb-3">
+          <h6 class="fw-bold">About TPO Portal</h6>
+          <p>The Training and Placement Office manages career opportunities for students, connecting them with leading companies and providing comprehensive placement support.</p>
+        </div>
+        <div class="col-md-3 mb-3">
+          <h6 class="fw-bold">Quick Links</h6>
+          <ul class="list-unstyled">
+            <li><a href="#" class="text-white">Student Guidelines</a></li>
+            <li><a href="#" class="text-white">Company Registration</a></li>
+            <li><a href="#" class="text-white">Placement Statistics</a></li>
+          </ul>
+        </div>
+        <div class="col-md-3 mb-3">
+          <h6 class="fw-bold">Resources</h6>
+          <ul class="list-unstyled">
+            <li><a href="#" class="text-white">Resume Templates</a></li>
+            <li><a href="#" class="text-white">Interview Tips</a></li>
+          </ul>
+        </div>
+        <div class="col-md-3 mb-3">
+          <h6 class="fw-bold">Contact Info</h6>
+          <p>Training & Placement Office<br>Mumbai, Maharashtra 400001</p>
+          <p><i class="fas fa-phone-alt"></i> +91 123 456 5678</p>
+          <p><i class="fas fa-envelope"></i> tpo@college.edu.in</p>
+        </div>
+      </div>
+      <p class="text-center mt-3 mb-0">© 2024 TPO Portal. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script>
+    document.querySelectorAll('.navbar-nav .nav-link').forEach(link => {
+      link.addEventListener('click', function (e) {
+        e.preventDefault();
+        document.querySelectorAll('.navbar-nav .nav-link').forEach(l => l.classList.remove('active'));
+        document.querySelectorAll('.tab-pane').forEach(tab => tab.classList.remove('show', 'active'));
+        this.classList.add('active');
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) target.classList.add('show', 'active');
+      });
+    });
+
+    new Chart(document.getElementById('placementChart'), {
+      type: 'line',
+      data: {
+        labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul'],
+        datasets: [{
+          label: 'Students Placed',
+          data: [10, 30, 50, 80, 100, 140, 180],
+          borderColor: '#0d6efd',
+          backgroundColor: 'rgba(13, 110, 253, 0.2)',
+          tension: 0.4,
+          fill: true
+        }]
+      },
+      options: { responsive: true }
+    });
+
+    new Chart(document.getElementById('departmentChart'), {
+      type: 'doughnut',
+      data: {
+        labels: ['CSE', 'ECE', 'MECH', 'CIVIL', 'Others'],
+        datasets: [{
+          data: [450, 300, 200, 150, 100],
+          backgroundColor: ['#0d6efd', '#198754', '#ffc107', '#dc3545', '#6f42c1']
+        }]
+      },
+      options: { responsive: true }
+    });
+  </script>
+</body>
+</html>
